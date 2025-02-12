@@ -1,0 +1,113 @@
+.debug {
+    background-color: #bbff87;
+    border-color: #00ff08;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.columns {
+    display: flex;
+    flex-direction: column;
+}
+
+.align {
+    display: flex;
+    align-items: center;
+}
+
+.rows {
+    display: flex;
+    flex-direction: row;
+}
+
+.justify {
+    display: flex;
+    justify-content: center;
+}
+
+.gap {
+    display: flex;
+    gap: 4px;
+}
+
+.p-1 {
+    padding: 1px;
+}
+
+.p-2 {
+    padding: 2px;
+}
+
+.p-3 {
+    padding: 3px;
+}
+
+.p-4 {
+    padding: 4px;
+}
+
+.p-5 {
+    padding: 5px;
+}
+
+.p-6 {
+    padding: 6px;
+}
+
+.p-7 {
+    padding: 7px;
+}
+
+.p-8 {
+    padding: 8px;
+}
+
+.p-9 {
+    padding: 9px;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.m-1 {
+    margin: 1px;
+}
+
+.m-2 {
+    margin: 2px;
+}
+
+.m-3 {
+    margin: 3px;
+}
+
+.m-4 {
+    margin: 4px;
+}
+
+.m-5 {
+    margin: 5px;
+}
+
+.m-6 {
+    margin: 6px;
+}
+
+.m-7 {
+    margin: 7px;
+}
+
+.m-8 {
+    margin: 8px;
+}
+
+.m-9 {
+    margin: 9px;
+}
+
+.m-10 {
+    margin: 10px;
+}
