@@ -1,6 +1,17 @@
 .debug {
     background-color: #bbff87;
-    border-color: #00ff08;
+    border-color: #002fff;
+}
+
+html, body {
+    height : 60px;
+    width : 300px;
+}
+
+.reminder-text {
+    font-size: xx-small;
+    padding: 0;
+    margin: -3px;
 }
 
 .no-padding {
@@ -10,6 +21,7 @@
 .columns {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .align {
@@ -31,6 +43,61 @@
     display: flex;
     gap: 4px;
 }
+
+@keyframes copying {
+    from {
+        background-color: white;
+    }
+    10% {
+        background-color: #e4e4e4;
+    }
+    to {
+        background-color: white;
+    }
+}
+
+.copying-animation {
+    animation-name: copying;
+    animation-duration: 0.3s;
+}
+
+input {
+    width: 100%;
+    padding: 2px;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1;
+    border-color: black;
+    background-color: white;
+    color: black;
+
+    user-select:none;
+    pointer-events: none
+}
+
+.generation-animation {
+    animation: generation 0.3s infinite linear;
+}
+
+@keyframes generation {
+    0% {
+        border-image: linear-gradient(45deg, #000000, #000000, #ff6b6b) 1;
+    }
+    25% {
+        border-image: linear-gradient(45deg, #000000, #ff6b6b, #f7b7a3) 1;
+    }
+    50% {
+        border-image: linear-gradient(45deg, #ff6b6b, #f7b7a3, #6b8eff) 1;
+    }
+    75% {
+        border-image: linear-gradient(45deg, #f7b7a3, #6b8eff, #000000) 1;
+    }
+    100% {
+        border-image: linear-gradient(45deg, #6b8eff, #000000, #000000) 1;
+    }
+}
+
 
 .p-1 {
     padding: 1px;

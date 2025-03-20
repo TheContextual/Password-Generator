@@ -1,0 +1,43 @@
+{
+    "manifest_version": 3,
+    "name" : "Password Generator",
+    "version" : "1.0.0",
+    "description" : "You can open this extension by pressing Ctrl+Shift+L",
+    "author" : "joe mama",
+
+    "icons" : {
+        "16" : "img/extension_icon16.png",
+        "48" : "img/extension_icon48.png",
+        "128" : "img/extension_icon128.png"
+    },
+
+    "action" : {
+        "default_popup" : "index.html",
+        "default_icon" : {
+            "16" : "img/extension_icon16.png",
+            "48" : "img/extension_icon48.png",
+            "128" : "img/extension_icon128.png"
+        },
+        "default_title" : "Password Generator"
+    },
+
+    "commands" : {
+        "_execute_action" : {
+            "suggested_key" : {
+                "default" : "Ctrl+Shift+L"
+            },
+            "description" : "Opens the extension"
+        },
+
+        "copy" : {
+            "suggested_key" : {
+                "default" : "Ctrl+C"
+            },
+            "description" : "Copies the text"
+        }
+    },
+
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+    }
+}
