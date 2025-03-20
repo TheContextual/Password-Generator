@@ -1,5 +1,5 @@
 Hey,\
-This is a simple password generator extension that generates simple, mostly readable passwords
+This is a simple password generator extension that generates simple, mostly readable passwords\
 It includes a button to generate passwords and one to copy passwords as well as some hotkeys
 
 Hotkeys\
