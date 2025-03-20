@@ -3,9 +3,9 @@ This is a simple password generator extension that generates simple, mostly read
 It includes a button to generate passwords and one to copy passwords as well as some hotkeys
 
 Hotkeys:
-  Ctrl+Shift+L   :  Opens the extension
-  Space          :  Generates a password
-  Ctrl+C         :  Copies the password
+Ctrl+Shift+L   :  Opens the extension
+Space          :  Generates a password
+Ctrl+C         :  Copies the password
 
 Instructions for installation:
   1. Download the ZIP file from this repo
