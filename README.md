@@ -2,7 +2,7 @@ This is a simple password generator extension that generates simple, mostly read
 It includes a button to generate passwords and one to copy passwords as well as some hotkeys
 
 Hotkeys\
-&emsp;Ctrl+Shift+L   :  Opens the extension\
+&emsp;Ctrl+Shift+H   :  Opens the extension\
 &emsp;Space          :  Generates a password\
 &emsp;Ctrl+C         :  Copies the password
 
