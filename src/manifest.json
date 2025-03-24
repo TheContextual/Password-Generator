@@ -24,9 +24,16 @@
     "commands" : {
         "_execute_action" : {
             "suggested_key" : {
-                "default" : "Ctrl+Shift+L"
+                "default" : "Ctrl+Shift+H"
             },
             "description" : "Opens the extension"
+        },
+        
+        "_execute_action_alt": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+L"
+            },
+            "description": "Opens the extension (alternative shortcut)"
         },
 
         "copy" : {
