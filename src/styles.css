@@ -82,21 +82,153 @@ input {
 
 @keyframes generation {
     0% {
-        border-image: linear-gradient(45deg, #000000, #000000, #ff6b6b) 1;
+        border-image: linear-gradient(45deg, #ccc, #ccc, #ff6b6b) 1;
     }
     25% {
-        border-image: linear-gradient(45deg, #000000, #ff6b6b, #f7b7a3) 1;
+        border-image: linear-gradient(45deg, #ccc, #ff6b6b, #f7b7a3) 1;
     }
     50% {
         border-image: linear-gradient(45deg, #ff6b6b, #f7b7a3, #6b8eff) 1;
     }
     75% {
-        border-image: linear-gradient(45deg, #f7b7a3, #6b8eff, #000000) 1;
+        border-image: linear-gradient(45deg, #f7b7a3, #6b8eff, #ccc) 1;
     }
     100% {
-        border-image: linear-gradient(45deg, #6b8eff, #000000, #000000) 1;
+        border-image: linear-gradient(45deg, #6b8eff, #ccc, #ccc) 1;
     }
 }
+
+.text-display-wrapper {
+    position: relative;
+    width: 180px;
+    height: 34px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 18px;
+    font-family: sans-serif;
+
+    user-select:none;
+  }
+
+  .input-1, .input-2, .input-3, .input-4, .input-5 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 40px;
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .text-display-wrapper.select-1 .input-1 {
+      transform: translateY(0%);
+  }
+
+  .text-display-wrapper.select-1 .input-2 {
+      transform: translateY(100%);
+  }
+
+  .text-display-wrapper.select-1 .input-3 {
+      transform: translateY(200%);
+  }
+
+  .text-display-wrapper.select-1 .input-4 {
+      transform: translateY(300%);
+  }
+
+  .text-display-wrapper.select-1 .input-5 {
+      transform: translateY(400%);
+  }
+
+
+
+  .text-display-wrapper.select-2 .input-1 {
+      transform: translateY(-100%);
+  }
+
+  .text-display-wrapper.select-2 .input-2 {
+      transform: translateY(0%);
+  }
+
+  .text-display-wrapper.select-2 .input-3 {
+      transform: translateY(100%);
+  }
+
+  .text-display-wrapper.select-2 .input-4 {
+      transform: translateY(200%);
+  }
+  
+  .text-display-wrapper.select-2 .input-5 {
+      transform: translateY(300%);
+  }
+
+
+
+  .text-display-wrapper.select-3 .input-1 {
+      transform: translateY(-200%);
+  }
+
+  .text-display-wrapper.select-3 .input-2 {
+      transform: translateY(-100%);
+  }
+
+  .text-display-wrapper.select-3 .input-3 {
+      transform: translateY(0%);
+  }
+
+  .text-display-wrapper.select-3 .input-4 {
+      transform: translateY(100%);
+  }
+  
+  .text-display-wrapper.select-3 .input-5 {
+      transform: translateY(200%);
+  }
+
+
+
+  .text-display-wrapper.select-4 .input-1 {
+      transform: translateY(-300%);
+  }
+
+  .text-display-wrapper.select-4 .input-2 {
+      transform: translateY(-200%);
+  }
+
+  .text-display-wrapper.select-4 .input-3 {
+      transform: translateY(-100%);
+  }
+
+  .text-display-wrapper.select-4 .input-4 {
+      transform: translateY(0%);
+  }
+  
+  .text-display-wrapper.select-4 .input-5 {
+      transform: translateY(100%);
+  }
+
+
+
+  .text-display-wrapper.select-5 .input-1 {
+      transform: translateY(-400%);
+  }
+
+  .text-display-wrapper.select-5 .input-2 {
+      transform: translateY(-300%);
+  }
+
+  .text-display-wrapper.select-5 .input-3 {
+      transform: translateY(-200%);
+  }
+
+  .text-display-wrapper.select-5 .input-4 {
+      transform: translateY(-100%);
+  }
+  
+  .text-display-wrapper.select-5 .input-5 {
+      transform: translateY(0%);
+  }
 
 
 .p-1 {

@@ -9,17 +9,23 @@
             <div class="justify align center gap">
                 
                 <div class="columns">
-                    <input id="text-display" readonly class="text-display m-1" width="40">
+                    <div class="text-display-wrapper select-1 m-1" id="text-display-wrapper">
+                        <div class="input-1" id="1">100</div>
+                        <div class="input-2" id="2">200</div>
+                        <div class="input-3" id="3">300</div>
+                        <div class="input-4" id="4">400</div>
+                        <div class="input-5" id="5">500</div>
+                    </div>
                     <div class="reminder-text">
                         press "Space" to generate, "Ctrl+C" to copy
                     </div>
                 </div>
 
-                <button id="copy-button" type="button" class="copy-button btn btn-secondary p-1">
+                <button id="copy-button" type="button" class="copy-button btn btn-secondary p-1" title="Copy">
                     <img src="./img/copyicon.png" height="32px">
                 </button>
 
-                <button id="wand-button" type="button" class="wand-button btn btn-primary p-1">
+                <button id="wand-button" type="button" class="wand-button btn btn-primary p-1" title="Generate">
                     <img src="./img/wandicon.png" height="32px">
                 </button>
 
