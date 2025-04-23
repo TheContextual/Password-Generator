@@ -182,30 +182,14 @@ function playSwitchAnimation() {
 function copyText() 
 {
     // Get the text field
-    var copyText = document.getElementById("text-display");
-  
+    var copyText = document.getElementById(selectedValue);
+    
+    console.log("selecting: " + selectedValue);
+    console.log(`copyText: ${copyText == null}`)
+
     if (copyText != null)
     {
-        // Select the text field
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
-    
-        // Copy the text inside the text field
-        document.execCommand("copy");
-    
-        // Deselect the text (remove selection)
-        window.getSelection().removeAllRanges();
-
-        // Create a new range that doesn't highlight anything
-        var range = document.createRange();
-
-        // Select a point in the document (e.g., at the very beginning of the body)
-        range.selectNodeContents(document.body);
-        range.setStart(document.body, 0); // Start the range at the very beginning of the body
-        range.setEnd(document.body, 0); // End the range at the same point
-
-        // Apply the empty selection
-        window.getSelection().addRange(range);
+        navigator.clipboard.writeText(copyText.textContent);
 
         playCopyAnimation();
     }
@@ -311,19 +295,6 @@ function replaceLettersWithNumbers(word) {
             }
         }
     }
-
-    //var chanceToCompare = 5;
-    //// Gen a number between 1 and 100 then check if it is less than or equal to the chance number set
-    //for (let i in password) {
-    //    if (password[i].toLocaleLowerCase() in replacements) {
-    //        var chance = Math.floor((Math.random() * 100));
-    //        if (chance <= chanceToCompare) {
-    //            password[i] = replacements[password[i].toLocaleLowerCase()];
-    //            var temp = password.replace(password[i].toLocaleLowerCase(), replacements[password[i].toLocaleLowerCase()]);
-    //            password = temp;
-    //        }
-    //    }
-    //}
 
     return word;
 }
