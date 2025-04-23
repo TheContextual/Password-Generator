@@ -9,46 +9,57 @@
 //    ]
 //}
 
-chrome.runtime.onMessage.addListener(data => {
+
+//chrome.runtime.onMessage.addListener(handleMessage(data))
+//
+//chrome.runtime.onConnect.addListener(function(port) {
+//    if (port.name === "popup") {
+//        console.log("popup")
+//        port.onConnect.addListener(function() {
+//            console.log("popup has been opened")
+//            chrome.runtime.onMessage.addListener(handleMessage(data))
+//        });
+//
+//        port.onDisconnect.addListener(function() {
+//            console.log("popup has been closed")
+//            chrome.runtime.onMessage.removeListener(handleMessage)
+//        });
+//    }
+//});
+
+//chrome.runtime.onMessage.addListener(handleMessage)
+
+function handleMessage(data)
+{
     const { event, lastFivePasswordsList } = data
-    console.log(`in background, ${event}`);
     switch (event) {
         case 'save':
             handleSave(lastFivePasswordsList);
             break;
         case 'load':
             handleLoad(data);
-            break;
+            break;//
         default:
             break;
     }
-})
+    return true;
+}
 
 const handleSave = (lastFivePasswordsList) => {
-    console.log(`passwords received: ${lastFivePasswordsList}`)
-    //console.log(`typeof: ${typeof(lastFivePasswords)}`)
-    //console.log(`typeof: ${typeof(lastFivePasswords[0])}`)
     chrome.storage.local.set({"lastFivePasswords" : lastFivePasswordsList});
-    chrome.storage.local.get(["lastFivePasswords"], function(result) {
-        console.log(`stored as: ${result.lastFivePasswords}`)
-    })
+    return true;
 }
 
 const handleLoad = (data) => {
-    try
-    {
-        chrome.storage.local.get(["lastFivePasswords"], (result) => {
-//
-        //    console.log(`successfully found these passwords on browser: ${lastFivePasswords}`)
-//
-        //    sendResponse(lastFivePasswords);
-        //    return true;
-            console.log(`1. going to send: ${result.lastFivePasswords}`);
-            chrome.runtime.sendMessage({ event: 'loading', "lastFivePasswordsListLocal": result.lastFivePasswords })
-        })
-    }
-    catch (e)
-    {
-        console.log(`Error: ${e}`);
-    }
+    //try
+    //{
+    //    chrome.storage.local.get(["lastFivePasswords"], (result) => {
+    //        //console.log(`1. going to send: ${result.lastFivePasswords}`);
+    //        chrome.runtime.sendMessage({ event: 'loading', "lastFivePasswordsListLocal": result.lastFivePasswords })
+    //    })
+    //}
+    //catch (e)
+    //{
+    //    console.log(`Error: ${e}`);
+    //}
 }

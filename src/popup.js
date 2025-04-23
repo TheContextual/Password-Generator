@@ -59,43 +59,69 @@ function addHTMLFunctionality(){
             if (event.key === "ArrowDown") {
                 selectDown();
             }
+
+            if (event.key == "t")
+            {
+                moveTo3WithoutAnimating();
+            }
         });
-    });
 
-    window.onkeyup = function(event) {
-        if (event.key == " " || event.code == "Space" || event.keyCode == 32)
-        {
-            console.log("pressing space")
-            makePassword();
-        }
-    }
-
-    console.log(`adding listener to chrome runtime`);
-    chrome.runtime.onMessage.addListener(data => {
-        const { event, lastFivePasswordsListLocal } = data
         try
         {
-            console.log(`in popup, ${event}`);
-            switch (event) {
-                case 'loading':
-                    console.log(`back in popup: ${lastFivePasswordsListLocal}`);
-                    onApplicationLoad(lastFivePasswordsListLocal);
-                    break;
-                default:
-                    break;
-            }
+            chrome.storage.local.get(["lastFivePasswords"], (result) => {
+                //console.log(`1. going to send: ${result.lastFivePasswords}`);
+                onApplicationLoad(result.lastFivePasswords)
+            })
         }
         catch (e)
         {
             console.log(`Error: ${e}`);
         }
-    })
+    });
 
-    chrome.runtime.sendMessage({ event: 'load', "lastFivePasswordsList": null })
+    window.onkeyup = function(event) {
+        if (event.key == " " || event.code == "Space" || event.keyCode == 32)
+        {
+            //console.log("pressing space")
+            makePassword();
+        }
+    }
+
+    ////console.log(`adding listener to chrome runtime`);
+    //chrome.runtime.onMessage.addListener(data => {
+    //    const { event, lastFivePasswordsListLocal } = data
+    //    try
+    //    {
+    //        //console.log(`in popup, ${event}`);
+    //        switch (event) {
+    //            case 'loading':
+    //                //console.log(`back in popup: ${lastFivePasswordsListLocal}`);
+    //                onApplicationLoad(lastFivePasswordsListLocal);
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    }
+    //    catch (e)
+    //    {
+    //        console.log(`Error: ${e}`);
+    //    }
+    //})
+
+    //chrome.runtime.sendMessage({ event: 'load', "lastFivePasswordsList": null })
+    
+}
+
+function moveTo3WithoutAnimating()
+{
+    selectedValue = 3;
+    switchWithoutAnimating();
+    
+    
 }
 
 function onApplicationLoad(lastFivePwordsList) {
-    lastFivePasswordsList = lastFivePwordsList;
+    lastFivePasswordsList = Array.isArray(lastFivePwordsList) ? lastFivePwordsList : [];
     updateVisual();
 }
 
@@ -110,18 +136,21 @@ function selectUp() {
 
 function selectDown() {
     if (selectedValue < noOfPasswordsGenerated) {
+        if (selectedValue < 5)
+        {
         // move the selection down
         selectedValue = selectedValue + 1;
         playSwitchAnimation();
+        }
     }
 }
 
 function storePassword() {
-    for (let i = 4; i >= 0; i--) {
+    for (let i = 5; i >= 0; i--) {
         // just checking that the index doesnt exceed the array length
         if (lastFivePasswordsList.length >=  i + 1)
         {
-            if (i == 4)
+            if (i == 5)
             {
                 //get rid of the last password in the list if we are at 5
             }
@@ -137,17 +166,39 @@ function storePassword() {
             lastFivePasswordsList[i] = password;
         }
     }
-    console.log("trying to send save messge");
-    chrome.runtime.sendMessage({ event: 'save', lastFivePasswordsList: lastFivePasswordsList })
+    //console.log("trying to send save messge");
+    //chrome.runtime.sendMessage({ event: 'save', lastFivePasswordsList: lastFivePasswordsList })
+    chrome.storage.local.set({"lastFivePasswords" : lastFivePasswordsList});
     updateVisual();
 }
 
 function updateVisual() {
-    for (let i = 0; i < lastFivePasswordsList.length; i++) {
-        document.getElementById(`${i + 1}`).innerHTML = lastFivePasswordsList[i];
+    try
+    {
+        // up the selected value temporarily
+        selectedValue++;
+        switchWithoutAnimating();
+
+        //fill in all the div fields with text
+        for (let i = 0; i < lastFivePasswordsList.length; i++) 
+        {
+            console.log(`document.getElementById(${i + 1}).innerHTML = ${lastFivePasswordsList[i]};`);
+            document.getElementById(`${i + 1}`).innerHTML = lastFivePasswordsList[i];
+        }
+
+        //need to set timeout or else doesnt animate properly
+        setTimeout(() => {
+            // animate selection back upwards
+            selectedValue--;
+            playSwitchAnimation();
+        }, 3);
+        
+        noOfPasswordsGenerated = lastFivePasswordsList.length;
     }
-    //console.log(lastFivePasswordsList.length);
-    noOfPasswordsGenerated = lastFivePasswordsList.length;
+    catch (e)
+    {
+        console.log(`Error: ${e}`)
+    }
 }
 
 function playCopyAnimation() {
@@ -171,12 +222,37 @@ function playGenerationAnimation() {
 function playSwitchAnimation() {
     const wrapper = document.getElementById('text-display-wrapper');
 
+    console.log(`switching to ${selectedValue} while animating`);
     wrapper.classList.remove('select-1');
     wrapper.classList.remove('select-2');
     wrapper.classList.remove('select-3');
     wrapper.classList.remove('select-4');
     wrapper.classList.remove('select-5');
+    wrapper.classList.remove('select-1-no-anim');
+    wrapper.classList.remove('select-2-no-anim');
+    wrapper.classList.remove('select-3-no-anim');
+    wrapper.classList.remove('select-4-no-anim');
+    wrapper.classList.remove('select-5-no-anim');
+    wrapper.classList.remove('select-6-no-anim');
     wrapper.classList.add(`select-${selectedValue}`);
+}
+
+function switchWithoutAnimating() {
+    const wrapper = document.getElementById('text-display-wrapper');
+
+    console.log(`switching to ${selectedValue} without animating`);
+    wrapper.classList.remove('select-1-no-anim');
+    wrapper.classList.remove('select-2-no-anim');
+    wrapper.classList.remove('select-3-no-anim');
+    wrapper.classList.remove('select-4-no-anim');
+    wrapper.classList.remove('select-5-no-anim');
+    wrapper.classList.remove('select-6-no-anim');
+    wrapper.classList.remove('select-1');
+    wrapper.classList.remove('select-2');
+    wrapper.classList.remove('select-3');
+    wrapper.classList.remove('select-4');
+    wrapper.classList.remove('select-5');
+    wrapper.classList.add(`select-${selectedValue}-no-anim`);
 }
 
 function copyText() 
@@ -197,8 +273,7 @@ function copyText()
 
 function makePassword()
 {    
-    try
-    {
+    
         //clear the password
         password = "";
 
@@ -210,21 +285,18 @@ function makePassword()
         password += selectRandomNumber();
         password += selectRandomSymbol();
     
-        document.getElementById("1").value = password;
+        //document.getElementById("1").value = password;
 
-        if (noOfPasswordsGenerated < 5) {
+        if (noOfPasswordsGenerated < 6) {
             noOfPasswordsGenerated++;
         }
 
         storePassword();
 
         playGenerationAnimation();
-        console.log("making password");
-    }
-    catch (e)
-    {
-        console.log(`Error: ${e}`);
-    }
+        //console.log("making password");
+    
+    
 }
  
 function selectWord() { // Selects one random word from the selected word list and adds it to the global password variable
