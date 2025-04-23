@@ -1,6 +1,6 @@
 var wordList = []
 
-var lastFivePasswords = []
+var lastFivePasswordsList = []
 
 var password = "";
 
@@ -65,9 +65,38 @@ function addHTMLFunctionality(){
     window.onkeyup = function(event) {
         if (event.key == " " || event.code == "Space" || event.keyCode == 32)
         {
+            console.log("pressing space")
             makePassword();
         }
     }
+
+    console.log(`adding listener to chrome runtime`);
+    chrome.runtime.onMessage.addListener(data => {
+        const { event, lastFivePasswordsListLocal } = data
+        try
+        {
+            console.log(`in popup, ${event}`);
+            switch (event) {
+                case 'loading':
+                    console.log(`back in popup: ${lastFivePasswordsListLocal}`);
+                    onApplicationLoad(lastFivePasswordsListLocal);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (e)
+        {
+            console.log(`Error: ${e}`);
+        }
+    })
+
+    chrome.runtime.sendMessage({ event: 'load', "lastFivePasswordsList": null })
+}
+
+function onApplicationLoad(lastFivePwordsList) {
+    lastFivePasswordsList = lastFivePwordsList;
+    updateVisual();
 }
 
 //both select up and down navigates through the last 5 passwords generated
@@ -83,7 +112,6 @@ function selectDown() {
     if (selectedValue < noOfPasswordsGenerated) {
         // move the selection down
         selectedValue = selectedValue + 1;
-        console.log(selectedValue)
         playSwitchAnimation();
     }
 }
@@ -91,7 +119,7 @@ function selectDown() {
 function storePassword() {
     for (let i = 4; i >= 0; i--) {
         // just checking that the index doesnt exceed the array length
-        if (lastFivePasswords.length >=  i + 1)
+        if (lastFivePasswordsList.length >=  i + 1)
         {
             if (i == 4)
             {
@@ -100,22 +128,26 @@ function storePassword() {
             else
             {
                 //move it down one position in the array
-                lastFivePasswords[i + 1] = lastFivePasswords[i];
+                lastFivePasswordsList[i + 1] = lastFivePasswordsList[i];
             }
         }
         if (i == 0)
         {
             //store the new password in the first position
-            lastFivePasswords[i] = password;
+            lastFivePasswordsList[i] = password;
         }
     }
+    console.log("trying to send save messge");
+    chrome.runtime.sendMessage({ event: 'save', lastFivePasswordsList: lastFivePasswordsList })
     updateVisual();
 }
 
 function updateVisual() {
-    for (let i = 0; i < lastFivePasswords.length; i++) {
-        document.getElementById(`${i + 1}`).innerHTML = lastFivePasswords[i];
+    for (let i = 0; i < lastFivePasswordsList.length; i++) {
+        document.getElementById(`${i + 1}`).innerHTML = lastFivePasswordsList[i];
     }
+    //console.log(lastFivePasswordsList.length);
+    noOfPasswordsGenerated = lastFivePasswordsList.length;
 }
 
 function playCopyAnimation() {
@@ -152,52 +184,63 @@ function copyText()
     // Get the text field
     var copyText = document.getElementById("text-display");
   
-    // Select the text field
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); // For mobile devices
-  
-     // Copy the text inside the text field
-    document.execCommand("copy");
-  
-    // Deselect the text (remove selection)
-    window.getSelection().removeAllRanges();
+    if (copyText != null)
+    {
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+        // Copy the text inside the text field
+        document.execCommand("copy");
+    
+        // Deselect the text (remove selection)
+        window.getSelection().removeAllRanges();
 
-    // Create a new range that doesn't highlight anything
-    var range = document.createRange();
+        // Create a new range that doesn't highlight anything
+        var range = document.createRange();
 
-    // Select a point in the document (e.g., at the very beginning of the body)
-    range.selectNodeContents(document.body);
-    range.setStart(document.body, 0); // Start the range at the very beginning of the body
-    range.setEnd(document.body, 0); // End the range at the same point
+        // Select a point in the document (e.g., at the very beginning of the body)
+        range.selectNodeContents(document.body);
+        range.setStart(document.body, 0); // Start the range at the very beginning of the body
+        range.setEnd(document.body, 0); // End the range at the same point
 
-    // Apply the empty selection
-    window.getSelection().addRange(range);
+        // Apply the empty selection
+        window.getSelection().addRange(range);
 
-    playCopyAnimation();
+        playCopyAnimation();
+    }
 }
 
 function makePassword()
 {    
-    //clear the password
-    password = "";
+    try
+    {
+        //clear the password
+        password = "";
 
-    password += selectRandomSymbol();
-    password += selectWord();
-    password += capitaliseFirstLetter(selectWord());
-    //password =  replaceLettersWithNumbers(password);
-    password += selectRandomNumber();
-    password += selectRandomNumber();
-    password += selectRandomSymbol();
- 
-    document.getElementById("1").value = password;
+        password += selectRandomSymbol();
+        password += selectWord();
+        password += capitaliseFirstLetter(selectWord());
+        //password =  replaceLettersWithNumbers(password);
+        password += selectRandomNumber();
+        password += selectRandomNumber();
+        password += selectRandomSymbol();
+    
+        document.getElementById("1").value = password;
 
-    if (noOfPasswordsGenerated < 5) {
-        noOfPasswordsGenerated++;
+        if (noOfPasswordsGenerated < 5) {
+            noOfPasswordsGenerated++;
+        }
+
+        storePassword();
+
+        playGenerationAnimation();
+        console.log("making password");
     }
-
-    storePassword();
-
-    playGenerationAnimation();
+    catch (e)
+    {
+        console.log(`Error: ${e}`);
+    }
 }
  
 function selectWord() { // Selects one random word from the selected word list and adds it to the global password variable
@@ -205,7 +248,7 @@ function selectWord() { // Selects one random word from the selected word list a
         var randomnumber = Math.floor((Math.random() * wordList.length) + 0)
         var tempWord = wordList[randomnumber];
     
-        console.log(wordList[randomnumber]);
+        //console.log(wordList[randomnumber]);
 
         if (password.includes(tempWord) == true) {
             var differentWords = false;
@@ -236,7 +279,7 @@ function selectRandomNumber() { // Makes a random number between 0 - 9
 }
 
 function selectRandomSymbol() { // Selects a random symbol from the list of symbols below
-    var baseSymbols = ["!", "$", "%", "*", ".", "#"];
+    var baseSymbols = ["!", "$", "%", "*", "^", "#", "@"];
 
     return baseSymbols[Math.floor((Math.random() * baseSymbols.length) + 0)];
     //password += baseSymbols[Math.floor((Math.random() * baseSymbols.length) + 0)];
