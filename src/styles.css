@@ -44,6 +44,68 @@ html, body {
     gap: 4px;
 }
 
+.align-left {
+    display: flex;
+    justify-self: left;
+}
+
+.text-display-wrapper .progress-bar-area {
+    background-color: rgb(182, 182, 182);
+    width: 5px;
+    height: 100%;
+}
+
+.text-display-wrapper .progress-bar-area .progress-bar {
+    background-color: rgb(148, 148, 148);
+    width: 100%;
+    height: 7px;
+    border-radius: 1px;
+}
+.text-display-wrapper.select-1 .progress-bar-area .progress-bar {
+    transform: translateY(0%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-2 .progress-bar-area .progress-bar {
+    transform: translateY(88%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-3 .progress-bar-area .progress-bar {
+    transform: translateY(177%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-4 .progress-bar-area .progress-bar {
+    transform: translateY(266%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-5 .progress-bar-area .progress-bar {
+    transform: translateY(355%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-1-no-anim .progress-bar-area .progress-bar {
+    transform: translateY(0%);
+    
+}
+.text-display-wrapper.select-2-no-anim .progress-bar-area .progress-bar {
+    transform: translateY(88%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-3-no-anim .progress-bar-area .progress-bar {
+    transform: translateY(177%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-4-no-anim .progress-bar-area .progress-bar {
+    transform: translateY(266%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-5-no-anim .progress-bar-area .progress-bar {
+    transform: translateY(355%);
+    transition: transform 0.15s ease-in-out;
+}
+.text-display-wrapper.select-6-no-anim .progress-bar-area .progress-bar {
+    transform: translateY(355%);
+    transition: transform 0.15s ease-in-out;
+}
+
 @keyframes copying {
     from {
         background-color: white;

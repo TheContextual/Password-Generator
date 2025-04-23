@@ -59,11 +59,6 @@ function addHTMLFunctionality(){
             if (event.key === "ArrowDown") {
                 selectDown();
             }
-
-            if (event.key == "t")
-            {
-                moveTo3WithoutAnimating();
-            }
         });
 
         try
@@ -109,14 +104,6 @@ function addHTMLFunctionality(){
     //})
 
     //chrome.runtime.sendMessage({ event: 'load', "lastFivePasswordsList": null })
-    
-}
-
-function moveTo3WithoutAnimating()
-{
-    selectedValue = 3;
-    switchWithoutAnimating();
-    
     
 }
 
@@ -182,7 +169,6 @@ function updateVisual() {
         //fill in all the div fields with text
         for (let i = 0; i < lastFivePasswordsList.length; i++) 
         {
-            console.log(`document.getElementById(${i + 1}).innerHTML = ${lastFivePasswordsList[i]};`);
             document.getElementById(`${i + 1}`).innerHTML = lastFivePasswordsList[i];
         }
 
