@@ -27,6 +27,27 @@ function populateWordList() {
 }
 
 function addHTMLFunctionality(){
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // dark mode
+        document.getElementById("top-tag").classList.add("dark-colour-palette");
+    }
+    else
+    {
+        //no need to add anything as default is light mode :)
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        const newColorScheme = event.matches ? "dark" : "light";
+        if (newColorScheme == "dark") 
+        {
+            document.getElementById("top-tag").classList.add("dark-colour-palette");
+        }
+        else if (newColorScheme == "light")
+        {
+            document.getElementById("top-tag").classList.remove("dark-colour-palette");
+        }
+    });
+
     window.addEventListener("DOMContentLoaded", function() {
         // adding the event listener to the button
         // we have to do this because making an inline 'onlick=makePassword()' is against the Content Security Policy (CSP)
@@ -64,7 +85,6 @@ function addHTMLFunctionality(){
         try
         {
             chrome.storage.local.get(["lastFivePasswords"], (result) => {
-                //console.log(`1. going to send: ${result.lastFivePasswords}`);
                 onApplicationLoad(result.lastFivePasswords)
             })
         }
@@ -77,34 +97,9 @@ function addHTMLFunctionality(){
     window.onkeyup = function(event) {
         if (event.key == " " || event.code == "Space" || event.keyCode == 32)
         {
-            //console.log("pressing space")
             makePassword();
         }
     }
-
-    ////console.log(`adding listener to chrome runtime`);
-    //chrome.runtime.onMessage.addListener(data => {
-    //    const { event, lastFivePasswordsListLocal } = data
-    //    try
-    //    {
-    //        //console.log(`in popup, ${event}`);
-    //        switch (event) {
-    //            case 'loading':
-    //                //console.log(`back in popup: ${lastFivePasswordsListLocal}`);
-    //                onApplicationLoad(lastFivePasswordsListLocal);
-    //                break;
-    //            default:
-    //                break;
-    //        }
-    //    }
-    //    catch (e)
-    //    {
-    //        console.log(`Error: ${e}`);
-    //    }
-    //})
-
-    //chrome.runtime.sendMessage({ event: 'load', "lastFivePasswordsList": null })
-    
 }
 
 function onApplicationLoad(lastFivePwordsList) {
@@ -153,8 +148,7 @@ function storePassword() {
             lastFivePasswordsList[i] = password;
         }
     }
-    //console.log("trying to send save messge");
-    //chrome.runtime.sendMessage({ event: 'save', lastFivePasswordsList: lastFivePasswordsList })
+
     chrome.storage.local.set({"lastFivePasswords" : lastFivePasswordsList});
     updateVisual();
 }
@@ -280,17 +274,12 @@ function makePassword()
         storePassword();
 
         playGenerationAnimation();
-        //console.log("making password");
-    
-    
 }
  
 function selectWord() { // Selects one random word from the selected word list and adds it to the global password variable
     try {
         var randomnumber = Math.floor((Math.random() * wordList.length) + 0)
         var tempWord = wordList[randomnumber];
-    
-        //console.log(wordList[randomnumber]);
 
         if (password.includes(tempWord) == true) {
             var differentWords = false;
@@ -312,19 +301,16 @@ function selectWord() { // Selects one random word from the selected word list a
         console.error(e);
     }
     return "NaN";
-    //password += tempWord;
 }
  
 function selectRandomNumber() { // Makes a random number between 0 - 9
     return Math.floor((Math.random() * 10) + 0);
-    //password += Math.floor((Math.random() * 10) + 0);
 }
 
 function selectRandomSymbol() { // Selects a random symbol from the list of symbols below
     var baseSymbols = ["!", "$", "%", "*", "^", "#", "@"];
 
     return baseSymbols[Math.floor((Math.random() * baseSymbols.length) + 0)];
-    //password += baseSymbols[Math.floor((Math.random() * baseSymbols.length) + 0)];
 }
  
 function replaceLettersWithNumbers(word) {
@@ -348,7 +334,6 @@ function replaceLettersWithNumbers(word) {
             if (randomRoll <= chanceSuccess)
             {
                 word[i] = replacements[word[i].toLocaleLowerCase()];
-                //var temp = word.replace(word[i].toLocaleLowerCase(), replacements[word[i].toLocaleLowerCase()]);
                 return word;
             }
         }

@@ -3,25 +3,49 @@
     border-color: #002fff;
 }
 
-html, body {
+:root {
+    --background-colour: white;
+    --reminder-text-colour: rgb(158, 156, 156);
+    --border-colour: #ccc;
+    --text-colour: rgb(59, 59, 59);
+    --progress-area-colour: rgb(182, 182, 182);
+    --progress-bar-colour: rgb(148, 148, 148);
+    --copy-flash: #e4e4e4;
+}
+
+.dark-colour-palette {
+    --background-colour: black;
+    --reminder-text-colour: rgb(96, 98, 117);
+    --border-colour: rgb(16, 21, 43);
+    --text-colour: rgb(162, 164, 194);
+    --progress-area-colour: rgb(6, 10, 19);
+    --progress-bar-colour: rgb(35, 47, 77);
+    --copy-flash: #1a1a1a;
+}
+
+.body {
     height : 60px;
     width : 300px;
+    background-color: var(--background-colour);
 }
 
 .reminder-text {
     font-size: 8px;
     padding: 0;
     margin: -3px;
+    color: var(--reminder-text-colour);
 }
 
 .no-padding {
     padding: 0;
+    background-color: var(--background-colour);
 }
 
 .columns {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 .align {
@@ -50,13 +74,13 @@ html, body {
 }
 
 .text-display-wrapper .progress-bar-area {
-    background-color: rgb(182, 182, 182);
+    background-color: var(--progress-area-colour);
     width: 5px;
     height: 100%;
 }
 
 .text-display-wrapper .progress-bar-area .progress-bar {
-    background-color: rgb(148, 148, 148);
+    background-color: var(--progress-bar-colour);
     width: 100%;
     height: 7px;
     border-radius: 1px;
@@ -108,13 +132,13 @@ html, body {
 
 @keyframes copying {
     from {
-        background-color: white;
+        background-color: var(--background-colour);
     }
     10% {
-        background-color: #e4e4e4;
+        background-color: var(--copy-flash);
     }
     to {
-        background-color: white;
+        background-color: var(--background-colour);
     }
 }
 
@@ -123,40 +147,25 @@ html, body {
     animation-duration: 0.3s;
 }
 
-input {
-    width: 100%;
-    padding: 2px;
-    margin: 0;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1;
-    border-color: black;
-    background-color: white;
-    color: black;
-
-    user-select:none;
-    pointer-events: none
-}
-
 .generation-animation {
     animation: generation 0.3s infinite linear;
 }
 
 @keyframes generation {
     0% {
-        border-image: linear-gradient(45deg, #ccc, #ccc, #ff6b6b) 1;
+        border-image: linear-gradient(45deg, var(--border-colour), var(--border-colour), #ff6b6b) 1;
     }
     25% {
-        border-image: linear-gradient(45deg, #ccc, #ff6b6b, #f7b7a3) 1;
+        border-image: linear-gradient(45deg, var(--border-colour), #ff6b6b, #f7b7a3) 1;
     }
     50% {
         border-image: linear-gradient(45deg, #ff6b6b, #f7b7a3, #6b8eff) 1;
     }
     75% {
-        border-image: linear-gradient(45deg, #f7b7a3, #6b8eff, #ccc) 1;
+        border-image: linear-gradient(45deg, #f7b7a3, #6b8eff, var(--border-colour)) 1;
     }
     100% {
-        border-image: linear-gradient(45deg, #6b8eff, #ccc, #ccc) 1;
+        border-image: linear-gradient(45deg, #6b8eff, var(--border-colour), var(--border-colour)) 1;
     }
 }
 
@@ -165,7 +174,7 @@ input {
     width: 180px;
     height: 34px;
     overflow: hidden;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-colour);
     border-radius: 3px;
     font-size: 18px;
     font-family: sans-serif;
@@ -181,6 +190,7 @@ input {
     height: 100%;
     text-align: center;
     line-height: 40px;
+    color: var(--text-colour)
 }
 
 
