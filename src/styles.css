@@ -9,7 +9,7 @@ html, body {
 }
 
 .reminder-text {
-    font-size: xx-small;
+    font-size: 8px;
     padding: 0;
     margin: -3px;
 }
