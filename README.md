@@ -1,12 +1,21 @@
+# Simple Password Generator
 This is a simple password generator extension that generates simple, mostly readable passwords\
 It includes a button to generate passwords and one to copy passwords as well as some hotkeys
 
-Hotkeys\
-&emsp;Ctrl+Shift+H   :  Opens the extension\
-&emsp;Space          :  Generates a password\
-&emsp;Ctrl+C         :  Copies the password
+## Features
+- [x] Generates varied passwords from large dictionary
+- [x] Stores up to five last generated passwords locally on browser
+- [x] Shortcut keys for power users
+- [x] Dark Mode
+- [x] Minimalist design
 
-Instructions for installation:
+## Hotkeys
+- &emsp;Ctrl+Shift+H&nbsp;&nbsp;&nbsp;:  &nbsp;&nbsp;&nbsp;Opens the extension
+- &emsp;Space&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:  &nbsp;&nbsp;&nbsp;Generates a password
+- &emsp;Ctrl+C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:  &nbsp;&nbsp;&nbsp;Copies the password
+- &emsp;Arrow Keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:  &nbsp;&nbsp;&nbsp;Navigates up and down through previous passwords
+
+## Instructions for installation
   1. Download the ZIP file from this repo
   2. Extract to a file location of your choice
   3. In your browser, go to [browser]://extensions/ for whichever browser you are using, e.g. brave://extensions/, or chrome://extensions/
