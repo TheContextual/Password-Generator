@@ -251,19 +251,41 @@ function copyText()
     }
 }
 
+// Helper function to shuffle an array in place randomly
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        // Pick a random index from 0 to i (inclusive)
+        const j = Math.floor(Math.random() * (i + 1));
+        // Swap elements array[i] and array[j]
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 function makePassword()
 {    
     
         //clear the password
-        password = "";
+        let password = ""; // Use 'let' for block scope
 
-        password += selectRandomSymbol();
-        password += selectWord();
-        password += capitaliseFirstLetter(selectWord());
-        //password =  replaceLettersWithNumbers(password);
-        password += selectRandomNumber();
-        password += selectRandomNumber();
-        password += selectRandomSymbol();
+        //    Wrapper for the capitalized word since it involves two steps
+        const getCapitalizedWord = () => capitaliseFirstLetter(selectWord());
+    
+        let passwordComponents = [
+            selectRandomSymbol,
+            selectWord,
+            getCapitalizedWord,
+            selectRandomNumber,
+            selectRandomNumber,
+            selectRandomSymbol
+        ];
+
+    // Shuffle the order of component functions
+    shuffleArray(passwordComponents);
+
+    // Build the password by executing the functions in the new random order
+    for (const componentGenerator of passwordComponents) {
+        password += componentGenerator(); // Call the function and append the result
+    }
     
         //document.getElementById("1").value = password;
 
